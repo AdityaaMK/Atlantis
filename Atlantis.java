@@ -194,7 +194,7 @@ import java.util.ArrayList;
 						aliens.get(i).setX(aliens.get(i).getVelX());
 						alienShots.get(i).setX(alienShots.get(i).getVelX());
 						gc2.drawImage(aliens.get(i).getImage(), aliens.get(i).getX(), aliens.get(i).getY());
-						gc2.drawImage(alienShots.get(i).getImage(), alienShots.getX(), alienShots.getY());
+						gc2.drawImage(alienShots.get(i).getImage(), alienShots.get(i).getX(), alienShots.get(i).getY());
 					} else if (score >= 1000) {
 						if (aliens.get(i).getImage() == ss1) {
 							int x = ((int) (Math.random() * -5) - 1);
