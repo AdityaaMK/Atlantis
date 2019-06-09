@@ -145,7 +145,7 @@ import java.util.ArrayList;
 
 				if (numAliens == 0) {
 					if (score < 1000) {
-						int a = (int) (Math.random() * 3) + 1;
+						//int a = (int) (Math.random() * 3) + 1;
 						/*if (a == 1) {
 							aliens.add(new Alien((int) (Math.random() * 150) + 820, (int) (Math.random() * 50) + 5, ss1));
 							numAliens++;
@@ -156,7 +156,7 @@ import java.util.ArrayList;
 						 */
 						int x = (int) (Math.random() * -150) - 20;
 						int y = (int) (Math.random() * 50) + 5;
-						int xSpeed = ((int) (Math.random() * 5) + 1);
+						int xSpeed = ((int) (Math.random() * 5) + 3);
 						Alien alien = new Alien(x, y, ss2);
 						alien.setVelX(xSpeed);
 						aliens.add(alien);
@@ -165,10 +165,11 @@ import java.util.ArrayList;
 						alienShots.add(bb);
 						numAliens++;
 					}
-				} else if (score >= 1000) {
-					int i = (int) (Math.random() * 3) + 1;
-					for (int a = 0; a < i; a++) {
-						int b = (int) (Math.random() * 10) + 1;
+				}
+					if(numAliens==0 && score>=1000) {
+						//int i = (int) (Math.random() * 3) + 1;
+						//for (int a = 0; a < i; a++) {
+							//int b = (int) (Math.random() * 10) + 1;
 							/*if (b == 1) {
 								aliens.add(new Alien((int) (Math.random() * 150) + 820, (int) (Math.random() * 50) + 5, ss1));
 								numAliens++;
@@ -176,19 +177,19 @@ import java.util.ArrayList;
 								aliens.add(new Alien((int) (Math.random() * -150) - 20, (int) (Math.random() * 50) + 5, ss2));
 								numAliens++;
 							} else {*/
-						int x = (int) (Math.random() * -150) - 20;
-						int y = (int) (Math.random() * 50) + 5;
-						int xSpeed = ((int) (Math.random() * 5) + 1);
-						Alien alien = new Alien(x, y, ss2);
-						alien.setVelX(xSpeed);
-						aliens.add(alien);
-						GameObject bb = new GameObject(x, y, bt);
-						bb.setVelX(xSpeed);
-						alienShots.add(bb);
-						numAliens++;
+							int x = (int) (Math.random() * -150) - 20;
+							int y = (int) (Math.random() * 50) + 5;
+							int xSpeed = ((int) (Math.random() * 5) + 1);
+							Alien alien = new Alien(x, y, ss2);
+							alien.setVelX(xSpeed);
+							aliens.add(alien);
+							GameObject bb = new GameObject(x, y, bt);
+							bb.setVelX(xSpeed);
+							alienShots.add(bb);
+							numAliens++;
+							//}
 						//}
 					}
-				}
 
 				/*	if (score < 1000) {
 						for (int i = 0; i < numAliens; i++) {
@@ -234,8 +235,6 @@ import java.util.ArrayList;
 					e.setX(e.getVelX());
 					gc2.drawImage(e.getImage(), e.getX(), e.getY());
 				}
-
-
 
 				for (GameObject i : totList) {
 					if (i instanceof Tower) {
