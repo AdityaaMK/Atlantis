@@ -23,11 +23,19 @@ public class Alien extends GameObject
 	private int velY;
 	private boolean isAlive;
 	private Image image;
+	private Image bt;
+	private int shooterNum;
 
 	public Alien(int x, int y, Image image){
 		super(x, y, image);
+		bt = new Image("bullet.png");
 		velX = 0;
 		velY = 0;
 		isAlive = true;
+		shooterNum = (int)(Math.random()*10)+1;
+	}
+
+	public int getShooterNum() {
+		return shooterNum;
 	}
 }

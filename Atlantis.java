@@ -48,6 +48,7 @@ import java.util.ArrayList;
 		int y = 0;
 		int numAliens = 0;
 		int score = 0;
+		int dp = 0;
 
 		public static void main(String[] args) {
 			launch();
@@ -55,6 +56,7 @@ import java.util.ArrayList;
 
 		public void start(Stage stage) {
 			stage.setTitle("Atlantis");
+			dp = (int) (Math.random() * 200) + 200;
 			aliens = new ArrayList<Alien>();
 			totList = new ArrayList<GameObject>();
 			alienShots = new ArrayList<GameObject>();
@@ -159,9 +161,9 @@ import java.util.ArrayList;
 						int xSpeed = ((int) (Math.random() * 5) + 3);
 						Alien alien = new Alien(x, y, ss2);
 						alien.setVelX(xSpeed);
-						aliens.add(alien);
 						GameObject bb = new GameObject(x, y, bt);
 						bb.setVelX(xSpeed);
+						aliens.add(alien);
 						alienShots.add(bb);
 						numAliens++;
 					}
@@ -182,9 +184,9 @@ import java.util.ArrayList;
 							int xSpeed = ((int) (Math.random() * 5) + 1);
 							Alien alien = new Alien(x, y, ss2);
 							alien.setVelX(xSpeed);
-							aliens.add(alien);
 							GameObject bb = new GameObject(x, y, bt);
 							bb.setVelX(xSpeed);
+							aliens.add(alien);
 							alienShots.add(bb);
 							numAliens++;
 							//}
@@ -231,9 +233,9 @@ import java.util.ArrayList;
 					gc2.drawImage(e.getImage(), e.getX(), e.getY());
 				}
 
-				for(GameObject e: alienShots){
-					e.setX(e.getVelX());
-					gc2.drawImage(e.getImage(), e.getX(), e.getY());
+				for(GameObject c: alienShots){
+					c.setX(c.getVelX());
+					gc2.drawImage(c.getImage(), c.getX(), c.getY());
 				}
 
 				for (GameObject i : totList) {
@@ -271,37 +273,29 @@ import java.util.ArrayList;
 						}
 					}
 
-				for (GameObject c : alienShots) {
-					for (Alien e : aliens) {
-						//	if (e.getX() > 10 && e.getX() < 790) {
-						if (!(c.isLaunched())) {
-							if (c.getX() == e.getX() && c.getY() == e.getY()) {
-								c.setVelX(10);
-								c.setVelY(10);
-								c.changeLaunched();
-							}
+					for (GameObject c : alienShots) {
+						if (!c.isLaunched() && c.getX() == dp) {
+							c.setVelY(5);
+							c.changeLaunched();
 						}
-						c.setX(c.getVelX());
 						c.setY(c.getVelY());
 						gc2.drawImage(c.getImage(), c.getX(), c.getY());
-						//	}
 					}
-				}
 
 				for (GameObject c : alienShots) {
 					if (c.bounds().intersects(tr1.bounds())) {
 						tr1.changeToDead();
-						totList.remove(tr1);
+						//totList.remove(tr1);
 						c.changeToDead();
 					}
 					if (c.bounds().intersects(tr2.bounds())) {
 						tr2.changeToDead();
-						totList.remove(tr2);
+						//totList.remove(tr2);
 						c.changeToDead();
 					}
 					if (c.bounds().intersects(tr3.bounds())) {
 						tr3.changeToDead();
-						totList.remove(tr3);
+						//totList.remove(tr3);
 						c.changeToDead();
 					}
 				}

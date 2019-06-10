@@ -101,6 +101,7 @@ public class GameObject
 
     public void setVelX(int velX)
     {
+
         this.velX = velX;
     }
 
