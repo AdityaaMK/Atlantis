@@ -11,6 +11,7 @@ import javafx.scene.image.*;
 import java.net.URL;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.media.AudioClip;
 import javafx.event.*;
 import javafx.scene.input.*;
 import javafx.scene.text.*;
@@ -23,11 +24,9 @@ import java.util.ArrayList;
 
 	public class Atlantis extends Application implements EventHandler<InputEvent> {
 
-		GraphicsContext gc;
-		GraphicsContext gc2;
-		Canvas cs;
-		Canvas cs2;
-		Scene sn, sn2;
+		GraphicsContext gc, gc2, gc3;
+		Canvas cs, cs2, cs3;
+		Scene sn, sn2, sn3;
 		AnimateObjects an;
 		Image bt;
 		Image hs;
@@ -37,26 +36,44 @@ import java.util.ArrayList;
 		Image t1;
 		Image t2;
 		Image t3;
+		Image ex;
+		Image mi;
+		Image go;
 		Tower tr1;
 		Tower tr2;
 		Tower tr3;
 		ArrayList<Alien> aliens;
 		ArrayList<GameObject> totList;
 		ArrayList<GameObject> alienShots;
+		ArrayList<GameObject> explosions;
 		boolean inSession;
 		int x = 0;
 		int y = 0;
 		int numAliens = 0;
 		int score = 0;
 		int dp = 0;
+		int delay = 17;
+		int resp = 0;
+		boolean s;
+		URL r1;
+		AudioClip clip;
+		URL r2;
+		AudioClip clip2;
+		URL r3;
+		AudioClip clip3;
+		String wave = "ONE";
 
 		public static void main(String[] args) {
+
 			launch();
 		}
 
 		public void start(Stage stage) {
+			s=true;
+			inSession = true;
 			stage.setTitle("Atlantis");
-			dp = (int) (Math.random() * 200) + 200;
+			dp = (int) (Math.random() * 790) + 10;
+			explosions = new ArrayList<GameObject>();
 			aliens = new ArrayList<Alien>();
 			totList = new ArrayList<GameObject>();
 			alienShots = new ArrayList<GameObject>();
@@ -73,11 +90,11 @@ import java.util.ArrayList;
 			sn2.addEventHandler(KeyEvent.KEY_RELEASED,this);
 			stage.setScene(sn);
 
-			Button bn = new Button("Press to Start Game");
-			bn.setTranslateX(288);
+			Button bn = new Button("Press to Defend Atlantis!");
+			bn.setTranslateX(170);
 			bn.setTranslateY(380);
-			bn.setPrefSize(230, 35);
-			bn.setStyle("-fx-background-color: #E76B03; ");
+			bn.setPrefSize(500, 45);
+			bn.setStyle("-fx-background-color: #00ffff; ");
 			rt.getChildren().add(bn);
 
 			bn.setOnAction(click -> {
@@ -95,10 +112,19 @@ import java.util.ArrayList;
 			t2 = new Image("t2.png");
 			t3 = new Image("t3.png");
 			bt = new Image("bullet.png");
+			ex = new Image("explosion.png");
+			mi = new Image("missile.jpg");
+			go = new Image("GameOver.png");
 			gc.drawImage(hs, 0, 0);
 			tr1 = new Tower(11, 263, t1);
 			tr2 = new Tower(364, 233, t2);
 			tr3 = new Tower(757, 236, t3);
+			r1 = getClass().getResource("laser.wav");
+			clip = new AudioClip(r1.toString());
+			r2 = getClass().getResource("atari_boom.wav");
+			clip2 = new AudioClip(r2.toString());
+			r3 = getClass().getResource("atari_boom2.wav");
+			clip3 = new AudioClip(r3.toString());
 			gc2.drawImage(bg, 0, 0);
 			gc2.drawImage(tr1.getImage(), tr1.getX(), tr1.getY());
 			gc2.drawImage(tr2.getImage(), tr2.getX(), tr2.getY());
@@ -106,217 +132,381 @@ import java.util.ArrayList;
 			totList.add(tr1);
 			totList.add(tr2);
 			totList.add(tr3);
+
+			Group rt3 = new Group();
+			cs3 = new Canvas(800, 450);
+			rt3.getChildren().add(cs3);
+			Scene sn3 = new Scene(rt3);
+			sn3.addEventHandler(KeyEvent.KEY_PRESSED,this);
+			sn3.addEventHandler(KeyEvent.KEY_RELEASED,this);
+			gc3 = cs3.getGraphicsContext2D();
+			if(!inSession){
+				stage.setScene(sn3);
+			}
+
 			an = new AnimateObjects();
 			an.start();
 			stage.show();
 		}
 
 		public void handle(final InputEvent event) {
-			if (((KeyEvent) event).getCode() == KeyCode.LEFT && tr1.isAlive())
+			if (((KeyEvent) event).getCode() == KeyCode.LEFT && tr1.isAlive()&&s) {
 				totList.add(new GameObject(tr1.getX(), tr1.getY(), bt));
-			if (((KeyEvent) event).getCode() == KeyCode.RIGHT && tr3.isAlive())
-				totList.add(new GameObject(tr3.getX(), tr3.getY(), bt));
-			if (((KeyEvent) event).getCode() == KeyCode.UP && tr2.isAlive())
+				delay = 17;
+				s = false;
+				clip.play();
+			}
+			if (((KeyEvent) event).getCode() == KeyCode.UP && tr2.isAlive()&&s) {
 				totList.add(new GameObject(tr2.getX(), tr2.getY(), bt));
+				delay = 17;
+				s = false;
+				clip.play();
+			}
+			if (((KeyEvent) event).getCode() == KeyCode.RIGHT && tr3.isAlive()&&s) {
+				totList.add(new GameObject(tr3.getX(), tr3.getY(), bt));
+				delay = 17;
+				s = false;
+				clip.play();
+			}
+			if (((KeyEvent) event).getCode() == KeyCode.SPACE && !inSession) {
+				gc2.clearRect(0, 0, cs2.getWidth(), cs2.getHeight());
+				tr1.switchAlive();
+				tr2.switchAlive();
+				tr3.switchAlive();
+				totList.add(tr1);
+				totList.add(tr2);
+				totList.add(tr3);
+				score = 0;
+				wave = "ONE";
+				for(Alien e: aliens) {
+					e.switchDead();
+				}
+				for(int i=0; i<aliens.size(); i++) {
+					aliens.remove(i);
+				}
+				numAliens = 0;
+				inSession = true;
+			}
 		}
 
 		public class AnimateObjects extends AnimationTimer {
 			public void handle(long now) {
-				gc2.clearRect(0, 0, cs2.getWidth(), cs2.getHeight());
-				gc2.drawImage(bg, 0, 0);
+				if(inSession) {
+					gc2.clearRect(0, 0, cs2.getWidth(), cs2.getHeight());
+					gc2.drawImage(bg, 0, 0);
 
-				gc2.setFill(Color.BLACK); //Fills the text in yellow
-				gc2.setStroke(Color.BLACK); //Changes the outline the black
-				gc2.setLineWidth(5); //How big the black lines will be
-				Font font1 = Font.font("Arial", FontWeight.NORMAL, 35);
-				gc2.setFont(font1);
-				gc2.fillText("Score: " + score + " ", 310, 415); //draws the yellow part of the text
-				gc2.strokeText("Score: " + score + " ", 310, 415); //draws the outline part of the text
+					gc2.setFill(Color.BLACK); //Fills the text in yellow
+					gc2.setStroke(Color.BLACK); //Changes the outline the black
+					gc2.setLineWidth(5); //How big the black lines will be
+					Font font1 = Font.font("Arial", FontWeight.NORMAL, 35);
+					gc2.setFont(font1);
+					gc2.fillText("Score: " + score + " ", 310, 415); //draws the yellow part of the text
+					gc2.strokeText("Score: " + score + " ", 310, 415); //draws the outline part of the text
 
-				for(int i = 0; i < totList.size(); i++) {
-					if(!(totList.get(i).isAlive())) {
-						totList.remove(i);
-					}
-				}
+					gc2.setFill(Color.BLUE); //Fills the text in yellow
+					gc2.setStroke(Color.BLUE); //Changes the outline the black
+					gc2.setLineWidth(5); //How big the black lines will be
+					Font font2 = Font.font("Arial", FontWeight.NORMAL, 35);
+					gc2.setFont(font2);
+					gc2.fillText("Wave: " + wave + " ", 565, 415); //draws the yellow part of the text
+					gc2.strokeText("Wave: " + wave + " ", 565, 415); //draws the outline part of the text
 
-				for(int i = 0; i < aliens.size(); i++) {
-					if(!(aliens.get(i).isAlive())) {
-						aliens.remove(i);
-					}
-				}
+					if(delay==0)
+						s = true;
+					else
+						delay--;
 
-				if (numAliens == 0) {
-					if (score < 1000) {
-						//int a = (int) (Math.random() * 3) + 1;
-						/*if (a == 1) {
-							aliens.add(new Alien((int) (Math.random() * 150) + 820, (int) (Math.random() * 50) + 5, ss1));
-							numAliens++;
-						} else if (a == 2) {
-							aliens.add(new Alien((int) (Math.random() * -150) - 20, (int) (Math.random() * 50) + 5, ss2));
-							numAliens++;
-						} else {
-						 */
-						int x = (int) (Math.random() * -150) - 20;
-						int y = (int) (Math.random() * 50) + 5;
-						int xSpeed = ((int) (Math.random() * 5) + 3);
-						Alien alien = new Alien(x, y, ss2);
-						alien.setVelX(xSpeed);
-						GameObject bb = new GameObject(x, y, bt);
-						bb.setVelX(xSpeed);
-						aliens.add(alien);
-						alienShots.add(bb);
-						numAliens++;
-					}
-				}
-					if(numAliens==0 && score>=1000) {
-						//int i = (int) (Math.random() * 3) + 1;
-						//for (int a = 0; a < i; a++) {
-							//int b = (int) (Math.random() * 10) + 1;
-							/*if (b == 1) {
-								aliens.add(new Alien((int) (Math.random() * 150) + 820, (int) (Math.random() * 50) + 5, ss1));
-								numAliens++;
-							} else if (b == 2) {
-								aliens.add(new Alien((int) (Math.random() * -150) - 20, (int) (Math.random() * 50) + 5, ss2));
-								numAliens++;
-							} else {*/
-							int x = (int) (Math.random() * -150) - 20;
-							int y = (int) (Math.random() * 50) + 5;
-							int xSpeed = ((int) (Math.random() * 5) + 1);
-							Alien alien = new Alien(x, y, ss2);
-							alien.setVelX(xSpeed);
-							GameObject bb = new GameObject(x, y, bt);
-							bb.setVelX(xSpeed);
-							aliens.add(alien);
-							alienShots.add(bb);
-							numAliens++;
-							//}
-						//}
-					}
-
-				/*	if (score < 1000) {
-						for (int i = 0; i < numAliens; i++) {
-							if (aliens.get(i).getImage() == ss1) {
-								int x = ((int) (Math.random() * -5) - 1);
-								aliens.get(i).setVelX(x);
-								alienShots.get(i).setVelX(x);
-							} else if (aliens.get(i).getImage() == ss2) {
-								int x = ((int) (Math.random() * 5) + 1);
-								aliens.get(i).setVelX(x);
-								alienShots.get(i).setVelX(x);
-							}
-							aliens.get(i).setX(aliens.get(i).getVelX());
-							alienShots.get(i).setX(alienShots.get(i).getVelX());
-							gc2.drawImage(aliens.get(i).getImage(), aliens.get(i).getX(), aliens.get(i).getY());
-							gc2.drawImage(alienShots.get(i).getImage(), alienShots.get(i).getX(), alienShots.get(i).getY());
-						}
-					} else if (score >= 1000) {
-						for (int i = 0; i < numAliens; i++) {
-							if (aliens.get(i).getImage() == ss1) {
-								int x = ((int) (Math.random() * -5) - 1);
-								aliens.get(i).setVelX(x);
-								alienShots.get(i).setVelX(x);
-							} else if (aliens.get(i).getImage() == ss2) {
-								int x = ((int) (Math.random() * 5) + 1);
-								aliens.get(i).setVelX(x);
-								alienShots.get(i).setVelX(x);
-							}
-							aliens.get(i).setX(aliens.get(i).getVelX());
-							alienShots.get(i).setX(alienShots.get(i).getVelX());
-							gc2.drawImage(aliens.get(i).getImage(), aliens.get(i).getX(), aliens.get(i).getY());
-							gc2.drawImage(alienShots.get(i).getImage(), alienShots.get(i).getX(), alienShots.get(i).getY());
+					for (int i = 0; i < totList.size(); i++) {
+						if (!(totList.get(i).isAlive())) {
+							totList.remove(i);
 						}
 					}
-				 */
 
-				for(Alien e : aliens){
-					e.setX(e.getVelX());
-					gc2.drawImage(e.getImage(), e.getX(), e.getY());
-				}
-
-				for(GameObject c: alienShots){
-					c.setX(c.getVelX());
-					gc2.drawImage(c.getImage(), c.getX(), c.getY());
-				}
-
-				for (GameObject i : totList) {
-					if (i instanceof Tower) {
-						gc2.drawImage(i.getImage(), i.getX(), i.getY());
-					} else {
-						if (!(i.isLaunched())) {
-							if (i.getX() == tr1.getX() && i.getY() == tr1.getY() && tr1.isAlive()) {
-								i.setVelX(7);
-								i.setVelY(-7);
-								i.changeLaunched();
-							} else if (i.getX() == tr2.getX() && i.getY() == tr2.getY() && tr2.isAlive()) {
-								i.setVelY(-7);
-								i.changeLaunched();
-							} else if (i.getX() == tr3.getX() && i.getY() == tr3.getY() && tr3.isAlive()) {
-								i.setVelX(-7);
-								i.setVelY(-7);
-								i.changeLaunched();
-							}
+					for (int i = 0; i < alienShots.size(); i++) {
+						if (!(alienShots.get(i).isAlive())) {
+							alienShots.remove(i);
 						}
-						i.setX(i.getVelX());
-						i.setY(i.getVelY());
-						gc2.drawImage(i.getImage(), i.getX(), i.getY());
 					}
-						for (int c = 0; c < numAliens; c++) {
-							if (!(i instanceof Tower)) {
-								if (i.bounds().intersects(aliens.get(c).bounds())) {
-									score += 100;
-									aliens.remove(c);
-									alienShots.get(c).changeToDead();
-									alienShots.remove(c);
-									numAliens--;
-								}
-							}
+
+					for (int i = 0; i < aliens.size(); i++) {
+						if (!(aliens.get(i).isAlive())) {
+							aliens.remove(i);
 						}
 					}
 
 					for (GameObject c : alienShots) {
-						if (!c.isLaunched() && c.getX() == dp) {
+						if (!c.isShot() && (c.getX()>0&&c.getX()<=364) && tr1.isAlive()) {
 							c.setVelY(5);
-							c.changeLaunched();
+							c.setVelX(0);
+							c.switchShot();
 						}
 						c.setY(c.getVelY());
 						gc2.drawImage(c.getImage(), c.getX(), c.getY());
 					}
 
-				for (GameObject c : alienShots) {
-					if (c.bounds().intersects(tr1.bounds())) {
-						tr1.changeToDead();
-						//totList.remove(tr1);
-						c.changeToDead();
+					for(GameObject c: alienShots) {
+						if (!c.isShot() && (c.getX()>364&&c.getX()<=757) && tr2.isAlive()) {
+							c.setVelY(5);
+							c.setVelX(0);
+							c.switchShot();
+						}
+						c.setY(c.getVelY());
+						gc2.drawImage(c.getImage(), c.getX(), c.getY());
 					}
-					if (c.bounds().intersects(tr2.bounds())) {
-						tr2.changeToDead();
-						//totList.remove(tr2);
-						c.changeToDead();
+
+					for(GameObject c: alienShots) {
+						if (!c.isShot() && (c.getX()>757&&c.getX()<=785) && tr3.isAlive()) {
+							c.setVelY(5);
+							c.setVelX(0);
+							c.switchShot();
+						}
+						c.setY(c.getVelY());
+						gc2.drawImage(c.getImage(), c.getX(), c.getY());
 					}
-					if (c.bounds().intersects(tr3.bounds())) {
-						tr3.changeToDead();
-						//totList.remove(tr3);
-						c.changeToDead();
+
+					if (numAliens == 0 && score < 1000) {
+						int a = (int) (Math.random() * 2) + 1;
+						if (a == 1) {
+							Alien alien = new Alien((int) (Math.random() * 150) + 820, 25, ss1);
+							int xSpeed = ((int) (Math.random() * -5) - 2);
+							alien.setVelX(xSpeed);
+							aliens.add(alien);
+							numAliens++;
+						} else if (a == 2) {
+							Alien alien = new Alien((int) (Math.random() * -150) - 20, 25, ss2);
+							int xSpeed = ((int) (Math.random() * 5) + 2);
+							alien.setVelX(xSpeed);
+							aliens.add(alien);
+							numAliens++;
+						}
+					}
+
+					else if (numAliens == 0 && score >= 1000 && score < 2000) {
+						wave = "TWO";
+						int yP = 0;
+						for (int a = 0; a < 2; a++) {
+							yP+=27;
+							int b = (int) (Math.random() * 2) + 1;
+							if (b == 1) {
+								Alien alien = new Alien((int) (Math.random() * 150) + 820, 50+yP, ss1);
+								int xSpeed = ((int) (Math.random() * -5) - 3);
+								alien.setVelX(xSpeed);
+								aliens.add(alien);
+								numAliens++;
+							} else if (b == 2) {
+								Alien alien = new Alien((int) (Math.random() * -150) - 20, 50+yP, ss2);
+								int xSpeed = ((int) (Math.random() * 5) + 3);
+								alien.setVelX(xSpeed);
+								aliens.add(alien);
+								numAliens++;
+							}
+						}
+					}
+
+					else if(score>=2000 && score<3000 && numAliens==0) {
+						wave = "THREE";
+						int yP = 0;
+						for (int a = 0; a < 3; a++) {
+							yP += 27;
+							int c = (int) (Math.random() * 2) + 1;
+							if (c == 1) {
+								Alien alien = new Alien((int) (Math.random() * 150) + 820, 100+yP, ss1);
+								int xSpeed = ((int) (Math.random() * -5) - 3);
+								alien.setVelX(xSpeed);
+								aliens.add(alien);
+								numAliens++;
+							} else if (c == 2) {
+								Alien alien = new Alien((int) (Math.random() * -150) - 20, 100+yP, ss2);
+								int xSpeed = ((int) (Math.random() * 5) + 3);
+								alien.setVelX(xSpeed);
+								aliens.add(alien);
+								numAliens++;
+							}
+						}
+					}
+
+					else if (score >= 3000 && numAliens == 0) {
+						wave = "DEATH";
+						int yP = 0;
+						for (int a = 0; a < 5; a++) {
+							yP += 27;
+							if (a==0||a==3) {
+								Alien alien = new Alien((int) (Math.random() * 150) + 820, 50+yP, ss1);
+								int xSpeed = ((int) (Math.random() * -5) - 3);
+								alien.setVelX(xSpeed);
+								aliens.add(alien);
+								numAliens++;
+							} else if(a==1||a==4){
+								Alien alien = new Alien((int) (Math.random() * -150) - 20, 50+yP, ss2);
+								int xSpeed = ((int) (Math.random() * 5) + 3);
+								alien.setVelX(xSpeed);
+								aliens.add(alien);
+								numAliens++;
+							} else if (a == 2) {
+								int f = (int) (Math.random() * 2) + 1;
+								if (f == 1) {
+									int x = (int) (Math.random() * -150) - 20;
+									int y = 50 + yP;
+									int xSpeed = ((int) (Math.random() * 5) + 5);
+									Alien alien = new Alien(x, y, ss2);
+									GameObject bb = new GameObject(x, y, mi);
+									bb.setVelX(xSpeed);
+									alien.setVelX(xSpeed);
+									aliens.add(alien);
+									alienShots.add(bb);
+									numAliens++;
+								} else if(f == 2 && tr3.isAlive()) {
+									int x = (int) (Math.random() * 150) + 820;
+									int y = 50 + yP;
+									int xSpeed = ((int) (Math.random() * -5) - 5);
+									Alien alien = new Alien(x, y, ss1);
+									GameObject bb = new GameObject(x, y, mi);
+									bb.setVelX(xSpeed);
+									alien.setVelX(xSpeed);
+									aliens.add(alien);
+									alienShots.add(bb);
+									numAliens++;
+								}
+							}
+						}
+					}
+
+					for (Alien e : aliens) {
+						e.setX(e.getVelX());
+						gc2.drawImage(e.getImage(), e.getX(), e.getY());
+					}
+
+					for (GameObject c : alienShots) {
+						c.setX(c.getVelX());
+						gc2.drawImage(c.getImage(), c.getX(), c.getY());
+					}
+
+					for (GameObject i : totList) {
+						if (i instanceof Tower) {
+							gc2.drawImage(i.getImage(), i.getX(), i.getY());
+						} else {
+							if (!(i.isShot())) {
+								if (i.getX() == (tr1.getX()) && i.getY() == tr1.getY() && tr1.isAlive()) {
+									i.setVelX(5);
+									i.setVelY(-5);
+									i.setX(tr1.getX() + 5);
+									i.switchShot();
+								} else if (i.getX() == (tr2.getX()) && i.getY() == tr2.getY() && tr2.isAlive()) {
+									i.setVelY(-5);
+									i.setX(tr1.getX());
+									i.switchShot();
+								} else if (i.getX() == tr3.getX() && i.getY() == tr3.getY() && tr3.isAlive()) {
+									i.setVelX(-5);
+									i.setVelY(-5);
+									i.switchShot();
+								}
+							}
+							i.setX(i.getVelX());
+							i.setY(i.getVelY());
+							gc2.drawImage(i.getImage(), i.getX(), i.getY());
+						}
+						for (Alien e: aliens) {
+							if (!(i instanceof Tower)) {
+								if (i.bounds().intersects(e.bounds())) {
+									score += 200;
+									GameObject explo = new GameObject(e.getX(), e.getY(), ex);
+									explosions.add(explo);
+									gc2.drawImage(explo.getImage(), explo.getX(), explo.getY());
+									i.switchDead();
+									e.switchDead();
+									clip2.play();
+									if (alienShots.size() != 0) {
+										for(GameObject c: alienShots) {
+											c.switchDead();
+											score+=300;
+										}
+									}
+									explosions.remove(explo);
+									numAliens--;
+									resp++;
+								}
+							}
+						}
+					}
+
+					if(resp==5) {
+						if (!tr1.isAlive()) {
+							tr1.switchAlive();
+							totList.add(tr1);
+							gc2.drawImage(tr1.getImage(), tr1.getX(), tr1.getY());
+							resp = 0;
+						} else if (!tr3.isAlive()) {
+							tr3.switchAlive();
+							totList.add(tr3);
+							gc2.drawImage(tr3.getImage(), tr3.getX(), tr3.getY());
+							resp = 0;
+						}
+					}
+
+					for (int i=0; i<alienShots.size(); i++) {
+						if (alienShots.get(i).bounds().intersects(tr1.bounds())) {
+							tr1.switchDead();
+							totList.remove(tr1);
+							alienShots.remove(i);
+							GameObject explo = new GameObject(tr1.getX(), tr1.getY(), ex);
+							explosions.add(explo);
+							gc2.drawImage(explo.getImage(), explo.getX(), explo.getY());
+							clip3.play();
+							explosions.remove(explo);
+						}
+						else if (alienShots.get(i).bounds().intersects(tr2.bounds())) {
+							tr2.switchDead();
+							totList.remove(tr2);
+							alienShots.remove(i);
+							GameObject explo = new GameObject(tr2.getX(), tr2.getY(), ex);
+							explosions.add(explo);
+							gc2.drawImage(explo.getImage(), explo.getX(), explo.getY());
+							clip3.play();
+							explosions.remove(explo);
+						}
+						else if (alienShots.get(i).bounds().intersects(tr3.bounds())) {
+							tr3.switchDead();
+							totList.remove(tr3);
+							alienShots.remove(i);
+							GameObject explo = new GameObject(tr3.getX(), tr3.getY(), ex);
+							explosions.add(explo);
+							gc2.drawImage(explo.getImage(), explo.getX(), explo.getY());
+							clip3.play();
+							explosions.remove(explo);
+						}
+					}
+
+					for (Alien e : aliens) {
+						if (e.getX() < -200) {
+							e.setX(1200);
+						}
+						if (e.getX() > 1000) {
+							e.setX(-1200);
+						}
+					}
+
+					for (GameObject c : alienShots) {
+						if (c.getX() < -200) {
+							c.setX(1200);
+						}
+						if (c.getX() > 1000) {
+							c.setX(-1200);
+						}
+					}
+					if (!tr1.isAlive() && !tr2.isAlive() && !tr3.isAlive()) {
+						inSession = false;
 					}
 				}
-
-				for (Alien e : aliens) {
-					if (e.getX() < -200) {
-						e.setX(1200);
-					}
-					if (e.getX() > 1000) {
-						e.setX(-1200);
-					}
-				}
-
-				if (!tr1.isAlive() && !tr2.isAlive() && !tr3.isAlive()) {
-					gc2.setFill(Color.YELLOW); //Fills the text in yellow
-					gc2.setStroke(Color.BLACK); //Changes the outline the black
+				else{
+					gc2.clearRect(0, 0, cs2.getWidth(), cs2.getHeight());
+					gc2.drawImage(go, 0, 0);
+					gc2.setFill(Color.YELLOW);
+					gc2.setStroke(Color.YELLOW); //Changes the outline the black
 					gc2.setLineWidth(1); //How big the black lines will be
 					Font font = Font.font("Arial", FontWeight.NORMAL, 48);
 					gc2.setFont(font);
-					gc2.fillText("Game Over", 100, 50); //draws the yellow part of the text
-					gc2.strokeText("Game Over", 100, 50); //draws the outline part of the text
+					gc2.fillText("Press Space to Try Again!", 170, 100); //draws the yellow part of the text
+					gc2.strokeText("Press Space to Try Again", 170, 100); //draws the outline part of the text
 				}
 			}
 		}

@@ -24,7 +24,8 @@ public class GameObject
     private int velY;
     private Image image;
     private boolean isAlive;
-    private boolean isLaunched;
+    private boolean isShot;
+    private int delay;
 
     public GameObject(int x, int y, Image image)
     {
@@ -34,7 +35,8 @@ public class GameObject
         velY = 0;
         this.image = image;
         isAlive = true;
-        isLaunched = false;
+        isShot = false;
+        delay = 60;
     }
 
     public Rectangle2D bounds()
@@ -61,10 +63,16 @@ public class GameObject
         return isAlive;
     }
 
-    public void changeToDead()
+    public void switchDead()
     {
 
         isAlive = false;
+    }
+
+    public void switchAlive()
+    {
+
+        isAlive = true;
     }
 
     public int getX()
@@ -74,12 +82,10 @@ public class GameObject
     }
     public int getY()
     {
-
         return y;
     }
     public void setX(int x)
     {
-
         this.x += x;
     }
     public void setY(int y)
@@ -89,19 +95,16 @@ public class GameObject
 
     public int getVelX()
     {
-
         return velX;
     }
 
     public int getVelY()
     {
-
         return velY;
     }
 
     public void setVelX(int velX)
     {
-
         this.velX = velX;
     }
 
@@ -111,15 +114,23 @@ public class GameObject
         this.velY = velY;
     }
 
-    public boolean isLaunched()
+    public boolean isShot()
     {
-
-        return isLaunched;
+        return isShot;
     }
 
-    public void changeLaunched()
+    public void switchShot()
     {
+        isShot = true;
+    }
 
-        isLaunched = true;
+    public int getDelay()
+    {
+        return delay;
+    }
+
+    public void setDelay(int num)
+    {
+        delay = num;
     }
 }
