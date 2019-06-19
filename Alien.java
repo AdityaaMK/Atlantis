@@ -23,6 +23,8 @@ public class Alien extends GameObject
 	private int velY;
 	private boolean isAlive;
 	private Image image;
+	private GameObject e;
+	private boolean hasBullet;
 
 	public Alien(int x, int y, Image image){
 		super(x, y, image);

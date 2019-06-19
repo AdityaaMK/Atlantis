@@ -2,23 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dff7f4b0-b15b-4acd-adb2-a8a85499cb66" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/missile.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Atlantis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Atlantis.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Alien.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alien.class" beforeDir="false" afterPath="$PROJECT_DIR$/Alien.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Alien.java" beforeDir="false" afterPath="$PROJECT_DIR$/Alien.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atlantis$AnimateObjects.class" beforeDir="false" afterPath="$PROJECT_DIR$/Atlantis$AnimateObjects.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atlantis.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atlantis.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atlantis.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bullet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bullet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tower.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/explosion.png" beforeDir="false" afterPath="$PROJECT_DIR$/explosion.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/t1.png" beforeDir="false" afterPath="$PROJECT_DIR$/t1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trooper.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/trooper.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atlantis.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdityaaMageshKumar.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Atlantis.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AdityaaMageshKumar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="356" column="48" lean-forward="true" selection-start-line="356" selection-start-column="48" selection-end-line="356" selection-end-column="48" />
+            <state relative-caret-position="-451">
+              <caret line="260" column="41" lean-forward="true" selection-start-line="260" selection-start-column="41" selection-end-line="260" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -46,12 +33,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GameObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-251">
-              <caret line="33" column="17" lean-forward="true" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+            <state relative-caret-position="-207">
+              <caret line="68" column="20" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2031#2032#0" expanded="true" />
-                <element signature="e#2064#2065#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -60,22 +45,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Alien.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="28" selection-start-line="28" selection-end-line="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="180">
+              <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Tower.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-35">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="-12">
+              <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -87,6 +67,8 @@
       <find>alienshots</find>
       <find>bullet</find>
       <find>tr3</find>
+      <find>resp</find>
+      <find>s</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -97,16 +79,17 @@
       <list>
         <option value="$PROJECT_DIR$/Bullet.java" />
         <option value="$PROJECT_DIR$/Demo.java" />
-        <option value="$PROJECT_DIR$/Alien.java" />
         <option value="$PROJECT_DIR$/GameObject.java" />
         <option value="$PROJECT_DIR$/Atlantis.java" />
+        <option value="$PROJECT_DIR$/Alien.java" />
+        <option value="$PROJECT_DIR$/AdityaaMageshKumar.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="816" />
+    <option name="height" value="814" />
   </component>
   <component name="ProjectView">
     <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
@@ -114,22 +97,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="Atlantis" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="Atlantis" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-            </path>
-            <path>
-              <item name="Atlantis" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="Atlantis" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name=".idea" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -145,7 +113,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -201,11 +169,16 @@
       <workItem from="1560707541812" duration="45000" />
       <workItem from="1560708089716" duration="982000" />
       <workItem from="1560716877329" duration="15186000" />
+      <workItem from="1560736658414" duration="36000" />
+      <workItem from="1560737284832" duration="478000" />
+      <workItem from="1560774135423" duration="9150000" />
+      <workItem from="1560818687187" duration="466000" />
+      <workItem from="1560860898465" duration="1486000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47182000" />
+    <option name="totallyTimeSpent" value="58798000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -217,10 +190,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="816" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="814" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2932761" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31473532" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -238,7 +210,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32872927" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32872927" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32825485" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -267,31 +239,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ss2.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$USER_HOME$/IdeaProjects/Atlantis2/Atlantis.java" />
     <entry file="file://$USER_HOME$/IdeaProjects/Atlantis2/Alien.java" />
     <entry file="file://$USER_HOME$/IdeaProjects/Atlantis2/GameObject.java" />
-    <entry file="file://$PROJECT_DIR$/HomeScreen.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/trooper.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bullet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Bullet.java" />
     <entry file="jar://$USER_HOME$/Downloads/javafx-sdk-12.0.1/lib/javafx.graphics.jar!/com/sun/glass/ui/InvokeLaterDispatcher.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -305,19 +262,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Alien.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/ss1.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tower.java">
+    <entry file="file://$PROJECT_DIR$/HomeScreen.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ss2.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdityaaMageshKumar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-35">
+        <state relative-caret-position="-451">
+          <caret line="260" column="41" lean-forward="true" selection-start-line="260" selection-start-column="41" selection-end-line="260" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -326,26 +283,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GameObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-251">
-          <caret line="33" column="17" lean-forward="true" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+        <state relative-caret-position="-207">
+          <caret line="68" column="20" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2031#2032#0" expanded="true" />
-            <element signature="e#2064#2065#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ss1.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Atlantis.java">
+    <entry file="file://$PROJECT_DIR$/Alien.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="356" column="48" lean-forward="true" selection-start-line="356" selection-start-column="48" selection-end-line="356" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="180">
+          <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tower.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-12">
+          <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
         </state>
       </provider>
     </entry>

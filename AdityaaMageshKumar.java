@@ -1,4 +1,4 @@
-import javafx.animation.AnimationTimer; //--module-path $PATH_TO_FX --add-modules javafx.controls
+import javafx.animation.AnimationTimer; //--module-path $PATH_TO_FX --add-modules javafx.controls,javafx.media
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -22,7 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.control.Button;
 import java.util.ArrayList;
 
-	public class Atlantis extends Application implements EventHandler<InputEvent> {
+	public class AdityaaMageshKumar extends Application implements EventHandler<InputEvent> {
 
 		GraphicsContext gc, gc2, gc3;
 		Canvas cs, cs2, cs3;
@@ -62,6 +62,7 @@ import java.util.ArrayList;
 		URL r3;
 		AudioClip clip3;
 		String wave = "ONE";
+		ArrayList<Tower> subTowers;
 
 		public static void main(String[] args) {
 
@@ -73,6 +74,7 @@ import java.util.ArrayList;
 			inSession = true;
 			stage.setTitle("Atlantis");
 			dp = (int) (Math.random() * 790) + 10;
+			subTowers = new ArrayList<Tower>();
 			explosions = new ArrayList<GameObject>();
 			aliens = new ArrayList<Alien>();
 			totList = new ArrayList<GameObject>();
@@ -123,7 +125,7 @@ import java.util.ArrayList;
 			clip = new AudioClip(r1.toString());
 			r2 = getClass().getResource("atari_boom.wav");
 			clip2 = new AudioClip(r2.toString());
-			r3 = getClass().getResource("atari_boom2.wav");
+			r3 = getClass().getResource("kaboom.wav");
 			clip3 = new AudioClip(r3.toString());
 			gc2.drawImage(bg, 0, 0);
 			gc2.drawImage(tr1.getImage(), tr1.getX(), tr1.getY());
@@ -168,7 +170,7 @@ import java.util.ArrayList;
 				s = false;
 				clip.play();
 			}
-			if (((KeyEvent) event).getCode() == KeyCode.SPACE && !inSession) {
+			if (((KeyEvent) event).getCode() == KeyCode.SPACE) {
 				gc2.clearRect(0, 0, cs2.getWidth(), cs2.getHeight());
 				tr1.switchAlive();
 				tr2.switchAlive();
@@ -200,16 +202,16 @@ import java.util.ArrayList;
 					gc2.setLineWidth(5); //How big the black lines will be
 					Font font1 = Font.font("Arial", FontWeight.NORMAL, 35);
 					gc2.setFont(font1);
-					gc2.fillText("Score: " + score + " ", 310, 415); //draws the yellow part of the text
-					gc2.strokeText("Score: " + score + " ", 310, 415); //draws the outline part of the text
+					gc2.fillText("Score: " + score + " ", 280, 415); //draws the yellow part of the text
+					gc2.strokeText("Score: " + score + " ", 280, 415); //draws the outline part of the text
 
 					gc2.setFill(Color.BLUE); //Fills the text in yellow
 					gc2.setStroke(Color.BLUE); //Changes the outline the black
 					gc2.setLineWidth(5); //How big the black lines will be
 					Font font2 = Font.font("Arial", FontWeight.NORMAL, 35);
 					gc2.setFont(font2);
-					gc2.fillText("Wave: " + wave + " ", 565, 415); //draws the yellow part of the text
-					gc2.strokeText("Wave: " + wave + " ", 565, 415); //draws the outline part of the text
+					gc2.fillText("Level: " + wave + " ", 565, 415); //draws the yellow part of the text
+					gc2.strokeText("Level: " + wave + " ", 565, 415); //draws the outline part of the text
 
 					if(delay==0)
 						s = true;
@@ -235,8 +237,8 @@ import java.util.ArrayList;
 					}
 
 					for (GameObject c : alienShots) {
-						if (!c.isShot() && (c.getX()>0&&c.getX()<=364) && tr1.isAlive()) {
-							c.setVelY(5);
+						if (!c.isShot() && (c.getX()>10&&c.getX()<=364) && tr1.isAlive()) {
+							c.setVelY(2);
 							c.setVelX(0);
 							c.switchShot();
 						}
@@ -246,7 +248,7 @@ import java.util.ArrayList;
 
 					for(GameObject c: alienShots) {
 						if (!c.isShot() && (c.getX()>364&&c.getX()<=757) && tr2.isAlive()) {
-							c.setVelY(5);
+							c.setVelY(2);
 							c.setVelX(0);
 							c.switchShot();
 						}
@@ -255,8 +257,8 @@ import java.util.ArrayList;
 					}
 
 					for(GameObject c: alienShots) {
-						if (!c.isShot() && (c.getX()>757&&c.getX()<=785) && tr3.isAlive()) {
-							c.setVelY(5);
+						if (!c.isShot() && (c.getX()>757&&c.getX()<=770) && tr3.isAlive()) {
+							c.setVelY(2);
 							c.setVelX(0);
 							c.switchShot();
 						}
@@ -347,7 +349,7 @@ import java.util.ArrayList;
 								if (f == 1) {
 									int x = (int) (Math.random() * -150) - 20;
 									int y = 50 + yP;
-									int xSpeed = ((int) (Math.random() * 5) + 5);
+									int xSpeed = (9);
 									Alien alien = new Alien(x, y, ss2);
 									GameObject bb = new GameObject(x, y, mi);
 									bb.setVelX(xSpeed);
@@ -358,7 +360,7 @@ import java.util.ArrayList;
 								} else if(f == 2 && tr3.isAlive()) {
 									int x = (int) (Math.random() * 150) + 820;
 									int y = 50 + yP;
-									int xSpeed = ((int) (Math.random() * -5) - 5);
+									int xSpeed = (-9);
 									Alien alien = new Alien(x, y, ss1);
 									GameObject bb = new GameObject(x, y, mi);
 									bb.setVelX(xSpeed);
@@ -415,22 +417,28 @@ import java.util.ArrayList;
 									i.switchDead();
 									e.switchDead();
 									clip2.play();
-									if (alienShots.size() != 0) {
-										for(GameObject c: alienShots) {
+									for(GameObject c: alienShots) {
+										if (e.getVelX() == c.getVelX()) {
 											c.switchDead();
-											score+=300;
+											score += 300;
 										}
 									}
 									explosions.remove(explo);
 									numAliens--;
-									resp++;
+									if(wave.equals("DEATH"))
+										resp++;
 								}
 							}
 						}
 					}
 
-					if(resp==5) {
-						if (!tr1.isAlive()) {
+					if(resp==20) {
+						if(!tr2.isAlive()){
+							tr2.switchAlive();
+							totList.add(tr2);
+							gc2.drawImage(tr2.getImage(), tr2.getX(), tr2.getY());
+							resp = 0;
+						} else if (!tr1.isAlive()) {
 							tr1.switchAlive();
 							totList.add(tr1);
 							gc2.drawImage(tr1.getImage(), tr1.getX(), tr1.getY());
